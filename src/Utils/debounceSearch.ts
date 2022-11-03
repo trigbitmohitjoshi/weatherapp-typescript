@@ -5,7 +5,7 @@ function debounceSearch(callback: (cityName: string) => void, delay: number) {
       clearTimeout(timeoutId);
     }
     timeoutId = setTimeout(() => {
-      callback(cityName);
+      if (cityName.length > 0) callback(cityName);
     }, delay);
   };
 }

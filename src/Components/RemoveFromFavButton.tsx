@@ -2,24 +2,23 @@ import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
 import { CityContext } from "../App";
-import { useRemoveFavCityFromLS } from "../Custom Hooks/useRemoveFavCityFromLS";
-import AddandRemoveFavContainer from "../Styles/AddandRemoveFavButton.styles";
-import { AddandRemoveFavVariant } from "../Animations/AddandRemoveFavButton.animation";
+import { useRemoveFavCityFromLS } from "../CustomHooks/useRemoveFavCityFromLS";
+import AddandRemoveFavContainer from "../Styles/AddandRemoveFavButton";
+import { AddandRemoveFavVariant } from "../Animations/AddandRemoveFavButton";
 import { motion } from "framer-motion";
 const RemoveFromFavButton = () => {
-  const { state } = React.useContext(CityContext)!;
-  const removeFavFromLS = React.useCallback(useRemoveFavCityFromLS(), []);
-  const favIcon = React.useMemo(() => <FontAwesomeIcon icon={faStar} />, []);
+  const { state:{cityName} } = React.useContext(CityContext)!;
+  const removeFavFromLS = useRemoveFavCityFromLS();
   return (
     <AddandRemoveFavContainer
       type="removeFromFavbtn"
-      onClick={() => removeFavFromLS(state.cityName)}
+      onClick={() => removeFavFromLS(cityName)}
       as={motion.div}
       variants={AddandRemoveFavVariant}
       whileHover="hover"
     >
       <p>Remove From Fav</p>
-      {favIcon}
+      <FontAwesomeIcon icon={faStar} />
     </AddandRemoveFavContainer>
   );
 };

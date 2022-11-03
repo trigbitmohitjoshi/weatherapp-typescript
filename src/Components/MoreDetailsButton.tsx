@@ -1,8 +1,7 @@
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React from "react";
 import { useNavigate } from "react-router-dom";
-import MoreDetailsContainer from "../Styles/MoreDetailsButton.styles";
+import MoreDetailsContainer from "../Styles/MoreDetailsButton";
 
 const MoreDetailsButton = ({ cityName }: { cityName: string }) => {
   const navigate = useNavigate();

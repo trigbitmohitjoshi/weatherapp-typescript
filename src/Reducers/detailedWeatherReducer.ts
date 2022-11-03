@@ -1,24 +1,24 @@
-import { DetailedCityData } from "../Types/DetailedCityData.types";
-import { SET_CITY_DATA, SET_CITY_NOT_FOUND } from "../Utils/Constants";
+import { DetailedCityDataType } from "../Types/DetailedCityData";
+import { CityActions } from "../Utils/constants";
 
 export const detailedWeatherReducer = (
   state: {
-    detailedCityData: DetailedCityData;
+    detailedCityData: DetailedCityDataType;
     cityNotFound: boolean;
   },
   action: {
-    type: string;
+    type: CityActions.SET_CITY_DATA | CityActions.SET_CITY_NOT_FOUND;
     payload: any;
   }
 ) => {
   switch (action.type) {
-    case SET_CITY_DATA:
+    case CityActions.SET_CITY_DATA:
       return {
         ...state,
         detailedCityData: action.payload,
       };
-    case SET_CITY_NOT_FOUND:
-      return { ...state, cityNotFound: action.payload, cityData: null };
+    case CityActions.SET_CITY_NOT_FOUND:
+      return { ...state, cityNotFound: action.payload };
     default:
       return state;
   }

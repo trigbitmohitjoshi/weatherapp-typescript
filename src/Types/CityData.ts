@@ -1,3 +1,5 @@
+import { CityReducerAction, CityReducerState } from "../Reducers/cityReducer";
+
 export type CityDataMain = {
   temp: number;
   feels_like: number;
@@ -25,4 +27,9 @@ export type CityDataType = {
   name: string;
   weather: CityDataWeather;
   sys: CityDataSys;
+};
+
+export type CityContextType = {
+  state: CityReducerState;
+  dispatch: React.Dispatch<CityReducerAction>;
 } | null;

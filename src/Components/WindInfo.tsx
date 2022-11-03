@@ -1,21 +1,21 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import WindInfoContainer from "../Styles/WindInfo.styles";
+import WindInfoContainer from "../Styles/WindInfo";
 import { faLocationArrow } from "@fortawesome/free-solid-svg-icons";
-import { degToDirection } from "../Utils/DegToDirection";
-import { CityDataWind } from "../Types/CityData.types";
-function WindInfo({ cityWindInfo }: { cityWindInfo: CityDataWind }) {
-  const windDirection = degToDirection(cityWindInfo.deg);
-  const windIcon = React.useMemo(
-    () => <FontAwesomeIcon icon={faLocationArrow} />,
-    []
-  );
+import { degToDirection } from "../Utils/degToDirection";
+import { CityDataWind } from "../Types/CityData";
+function WindInfo({
+  cityWindInfo: { deg, speed },
+}: {
+  cityWindInfo: CityDataWind;
+}) {
+  const windDirection = degToDirection(deg);
   return (
     <>
       <WindInfoContainer>
-        {windIcon}
+        <FontAwesomeIcon icon={faLocationArrow} />
         <p>
-          {cityWindInfo.speed}m/s {windDirection}
+          {speed}m/s {windDirection}
         </p>
       </WindInfoContainer>
     </>

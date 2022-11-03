@@ -1,36 +1,35 @@
-import { CityDataType } from "../Types/CityData.types";
-import {
-  FAV_CITIES,
-  SET_CITY_DATA,
-  SET_CITY_NAME,
-  SET_CITY_NOT_FOUND,
-} from "../Utils/Constants";
+import { CityDataType } from "../Types/CityData";
+import { CityActions } from "../Utils/constants";
+
+export type CityReducerState = {
+  cityName: string;
+  cityData: CityDataType | null;
+  cityNotFound: boolean;
+  favCities: [];
+};
+
+export type CityReducerAction = {
+  type: CityActions;
+  payload: any;
+};
 
 export const cityReducer = (
-  state: {
-    cityName: string;
-    cityData: CityDataType;
-    cityNotFound: boolean;
-    favCities: [];
-  },
-  action: {
-    type: string;
-    payload: any;
-  }
+  state: CityReducerState,
+  action: CityReducerAction
 ) => {
   switch (action.type) {
-    case SET_CITY_NAME:
+    case CityActions.SET_CITY_NAME:
       return {
         ...state,
         cityName: action.payload,
         cityData: null,
         cityNotFound: false,
       };
-    case SET_CITY_DATA:
+    case CityActions.SET_CITY_DATA:
       return { ...state, cityData: action.payload };
-    case SET_CITY_NOT_FOUND:
+    case CityActions.SET_CITY_NOT_FOUND:
       return { ...state, cityNotFound: action.payload };
-    case FAV_CITIES:
+    case CityActions.FAV_CITIES:
       return { ...state, favCities: action.payload };
     default:
       return state;

@@ -1,13 +1,13 @@
 import React from "react";
 import { cityReducer } from "./Reducers/cityReducer";
-import { FAV_CITIES } from "./Utils/Constants";
-import IndexGlobalStyle from "./Styles/index.styles";
+import { CityActions } from "./Utils/constants";
+import IndexGlobalStyle from "./Styles";
 import { Route, Routes, useLocation } from "react-router-dom";
-import DetailedWeatherPage from "./Components/Detailed Weather/DetailedWeatherPage";
+import DetailedWeatherPage from "./Components/DetailedWeather/DetailedWeatherPage";
 import HomePage from "./Components/HomePage";
 import PageNotFound from "./Components/PageNotFound";
-import { CityDataType } from "./Types/CityData.types";
 import { AnimatePresence } from "framer-motion";
+import { CityContextType } from "./Types/CityData";
 
 const initialState = {
   cityName: "",
@@ -15,23 +15,15 @@ const initialState = {
   cityNotFound: false,
   favCities: [],
 };
-type CityContextType = {
-  state: {
-    cityName: string;
-    cityData: CityDataType;
-    cityNotFound: boolean;
-    favCities: [];
-  };
-  dispatch: React.Dispatch<any>;
-};
-export const CityContext = React.createContext<CityContextType | null>(null);
+
+export const CityContext = React.createContext<CityContextType>(null);
 const App = () => {
   const [state, dispatch] = React.useReducer(cityReducer, initialState);
   const location = useLocation();
   React.useEffect(() => {
     const fav = localStorage.getItem("Fav Cities");
     dispatch({
-      type: FAV_CITIES,
+      type: CityActions.FAV_CITIES,
       payload: fav !== null ? JSON.parse(fav) : [],
     });
   }, []);

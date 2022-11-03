@@ -1,14 +1,17 @@
 import React from "react";
 import { motion } from "framer-motion";
-import { AppVariant } from "../Animations/App.animations";
-import AppStyles from "../Styles/App.styles";
+import { AppVariant } from "../Animations/App";
+import AppStyles from "../Styles/App";
 import SearchField from "./SearchField";
 import VerticalSpacer from "./VerticalSpacer";
 import WeatherInfo from "./WeatherInfo";
 import FavCity from "./FavCity";
 import { CityContext } from "../App";
+
 const HomePage = () => {
-  const { state } = React.useContext(CityContext)!;
+  const {
+    state: { cityName, cityData, cityNotFound },
+  } = React.useContext(CityContext)!;
 
   return (
     <AppStyles.MainContainer
@@ -21,13 +24,13 @@ const HomePage = () => {
       <AppStyles.AppContainer>
         <SearchField />
         <VerticalSpacer space={"1rem"} />
-        {state.cityName.length !== 0 ? (
-          state.cityData !== null ? (
+        {cityName.length !== 0 ? (
+          cityData !== null ? (
             <WeatherInfo />
-          ) : state.cityNotFound === false ? (
-            <p>Loading...</p>
-          ) : (
+          ) : cityNotFound ? (
             <p>City Not Found</p>
+          ) : (
+            <p>Loading...</p>
           )
         ) : (
           <p>No City Entered</p>

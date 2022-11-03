@@ -1,65 +1,41 @@
 import React from "react";
-import SearchFieldContainer from "../Styles/SearchField.styles";
+import SearchFieldContainer from "../Styles/SearchField";
 import { CityContext } from "../App";
 import { debounceSearch } from "../Utils/debounceSearch";
-import { getCityWeatherData } from "../Api/getCityWeatherData";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  SET_CITY_DATA,
-  SET_CITY_NAME,
-  SET_CITY_NOT_FOUND,
-} from "../Utils/Constants";
+import { CityActions } from "../Utils/constants";
+import { useGetCityWeatherData } from "../CustomHooks/useGetCityWeatherData";
 const SearchField = () => {
-  const { state, dispatch } = React.useContext(CityContext)!;
-  const getData = React.useCallback(
-    (cityName: string) => {
-      getCityWeatherData(cityName.toLowerCase())
-        .then((res) => {
-          dispatch({
-            type: SET_CITY_DATA,
-            payload: res.data,
-          });
-          dispatch({
-            type: SET_CITY_NOT_FOUND,
-            payload: false,
-          });
-        })
-        .catch((error) => {
-          dispatch({
-            type: SET_CITY_DATA,
-            payload: null,
-          });
-          dispatch({
-            type: SET_CITY_NOT_FOUND,
-            payload: true,
-          });
-        });
-    },
-    [dispatch]
-  );
+  const {
+    state: { cityName },
+    dispatch,
+  } = React.useContext(CityContext)!;
+
+  const getData = useGetCityWeatherData();
+
   const { current: decoratedWeatherData } = React.useRef(
     debounceSearch(getData, 3000)
   );
+
   React.useEffect(() => {
-    if (state.cityName) {
-      decoratedWeatherData(state.cityName);
-    }
-  }, [decoratedWeatherData, state.cityName]);
-  const handleFieldChange = (e: { target: { value: any } }) => {
+    decoratedWeatherData(cityName);
+  }, [decoratedWeatherData, cityName]);
+
+  const handleFieldChange = (e: { target: { value: string } }) => {
     dispatch({
-      type: SET_CITY_NAME,
+      type: CityActions.SET_CITY_NAME,
       payload: e.target.value,
     });
   };
   const searchButton = (
-    <FontAwesomeIcon icon={faSearch} onClick={() => getData(state.cityName)} />
+    <FontAwesomeIcon icon={faSearch} onClick={() => getData(cityName)} />
   );
   return (
     <SearchFieldContainer>
       <input
         type={"text"}
-        value={state.cityName}
+        value={cityName}
         onChange={handleFieldChange}
         placeholder="Enter a City"
         autoFocus

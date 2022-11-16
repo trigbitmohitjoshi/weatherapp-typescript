@@ -1,5 +1,5 @@
 import React from "react";
-import TempInfoContainer from "../Styles/TempInfo";
+import TempInfoContainer from "./TempInfoContainer";
 import { CityDataMain } from "../Types/CityData";
 import { kelvinToCelsius } from "../Utils/kelvinToCelsius";
 const TempInfo = ({ cityTempInfo }: { cityTempInfo: CityDataMain }) => {

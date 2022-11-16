@@ -1,7 +1,7 @@
 import React from "react";
 import { cityReducer } from "./Reducers/cityReducer";
 import { CityActions } from "./Utils/constants";
-import IndexGlobalStyle from "./Styles";
+import GlobalStyle from "./Components/GlobalStyle";
 import { Route, Routes, useLocation } from "react-router-dom";
 import DetailedWeatherPage from "./Components/DetailedWeather/DetailedWeatherPage";
 import HomePage from "./Components/HomePage";
@@ -30,7 +30,7 @@ const App = () => {
 
   return (
     <CityContext.Provider value={{ state, dispatch }}>
-      <IndexGlobalStyle />
+      <GlobalStyle />
       <AnimatePresence mode="wait">
         <Routes location={location} key={location.key}>
           <Route index path="/" element={<HomePage />} />

@@ -1,10 +1,8 @@
 import React from "react";
-import FavCityStyles from "../Styles/FavCity";
+import FavCityStyles from "./FavCityContainer";
 import { CityContext } from "../App";
 import { useRemoveFavCityFromLS } from "../CustomHooks/useRemoveFavCityFromLS";
-import {
-  CityActions
-} from "../Utils/constants";
+import { CityActions } from "../Utils/constants";
 import { motion } from "framer-motion";
 import { FavCitiesVariants } from "../Animations/FavCity";
 import { useGetCityWeatherData } from "../CustomHooks/useGetCityWeatherData";
